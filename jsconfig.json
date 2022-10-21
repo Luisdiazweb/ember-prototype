@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "experimentalDecorators": true,
+      "target": "es2016"
+    },
+    "exclude": ["node_modules", "dist"]
+}
