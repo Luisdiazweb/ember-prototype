@@ -10,12 +10,12 @@ export default class LoginController extends Controller {
   @tracked errorList = [];
 
   @action
-  udpateEmail(event){
-    this.email = event.target.value.toString()
+  udpateEmail(event) {
+    this.email = event.target.value.toString();
   }
 
   @action
-  updatePassword(event){
+  updatePassword(event) {
     this.password = event.target.value.toString();
   }
 

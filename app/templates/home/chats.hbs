@@ -1,0 +1,16 @@
+{{page-title "Chats"}}
+<div class="m-0 pt-6">
+    {{!-- Search section --}}
+    <div class="font-bold text-xl px-6 mb-2">Chats</div>
+    <div class="mb-4 px-4">
+        <input type="text" placeholder="Search messages or users" class="input input-bordered w-full" {{ on "input" this.updateSearchValue}} value={{this.searchValue}}/>
+    </div>
+
+    {{!-- Recents section --}}
+    <div class="font-bold text-lg px-6 mb-2">Recent</div>
+    <div class="m-0 overflow-y-auto h-full">
+        {{#each this.contactListDisplayed as |item|}}
+            <Chat @name="{{item.name}}" @image="{{item.image}}"/>
+        {{/each}}
+    </div>
+</div>
