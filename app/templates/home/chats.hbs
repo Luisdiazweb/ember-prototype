@@ -6,11 +6,18 @@
         <input type="text" placeholder="Search messages or users" class="input input-bordered w-full" {{ on "input" this.updateSearchValue}} value={{this.searchValue}}/>
     </div>
 
+    {{!-- Recents contacts section --}}
+    <div class="px-2 mb-4 flex justify-center">
+        {{#each this.recentContacts as |item|}}
+            <RecentContact @name="{{item.name}}" @image="{{item.image}}"/>
+        {{/each}}
+    </div>
+
     {{!-- Recents section --}}
     <div class="font-bold text-lg px-6 mb-2">Recent</div>
     <div class="m-0 overflow-y-auto h-full">
         {{#each this.contactListDisplayed as |item|}}
-            <Chat @name="{{item.name}}" @image="{{item.image}}"/>
+            <Chat @name="{{item.name}}" @lastname="{{item.lastname}}" @image="{{item.image}}"/>
         {{/each}}
     </div>
 </div>

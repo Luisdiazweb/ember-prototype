@@ -6,33 +6,45 @@ export default class HomeChatsController extends Controller {
   @tracked chatsList = [
     {
       contact_id: 1,
-      name: 'Testing User 1',
+      name: 'Carlos',
+      lastname: 'Moto',
       image: null,
     },
     {
       contact_id: 2,
-      name: 'Testing User 2',
+      name: 'Kevin',
+      lastname: 'Sorto',
       image: 'https://placeimg.com/192/192/people',
     },
     {
       contact_id: 3,
-      name: 'Testing User 3',
+      name: 'José',
+      lastname: 'Hernández',
       image: null,
     },
   ];
   @tracked searchValue = '';
 
-  get contactListDisplayed(){
+  get contactListDisplayed() {
     let newList = this.chatsList;
-    if(this.searchValue.toString().length > 0){
-        newList = this.chatsList.filter(item => item.name.toString().toLowerCase().includes(this.searchValue.toString().toLowerCase()));
+    if (this.searchValue.toString().length > 0) {
+      newList = this.chatsList.filter((item) =>
+        item.name
+          .toString()
+          .toLowerCase()
+          .includes(this.searchValue.toString().toLowerCase())
+      );
     }
     return newList;
   }
 
+  get recentContacts() {
+    return this.chatsList.slice(0,3);
+  }
+
   @action
-  updateSearchValue(event){
-    console.log("Search active");
+  updateSearchValue(event) {
+    console.log('Search active');
     this.searchValue = event.target.value.toString();
   }
 }

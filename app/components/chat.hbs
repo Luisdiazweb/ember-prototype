@@ -1,7 +1,7 @@
-<div class="grid grid-cols-3 py-4 hover:bg-white">
+<div class="grid grid-cols-3 py-4 hover:bg-white cursor-pointer">
     {{!-- Avatar image --}}
     <div class="avatar grid justify-center content-center placeholder">
-        <div class="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 grid justify-center">
+        <div class="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 grid justify-center content-center">
             {{#if @image}}
                 <img src="{{@image}}" />
             {{else}}
@@ -11,7 +11,7 @@
     </div>
     <div class="col-span-2">
         <div class="flex justify-between pr-4 align-center">
-            <span class="font-bold">{{ @name }}</span>
+            <span class="font-bold">{{ @name }}&nbsp;{{@lastname}}</span>
             <span class="text-sm">16:42 PM</span>
         </div>
         <div class="text-base">
