@@ -21,10 +21,21 @@
         <input type="checkbox" id="my-modal" class="modal-toggle" />
         <div class="modal">
             <div class="modal-box">
-                <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
-                <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-                <div class="modal-action">
-                    <label for="my-modal" class="btn">Yay!</label>
+                <div class="flex flex-row items-center justify-between">
+                    <h3 class="font-bold text-lg">Add member</h3>
+                    <label class="cursor-pointer btn btn-circle border-none btn-outline hover:bg-white" for="my-modal">
+                        <svg class="h-5 w-5 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="18" y1="6" x2="6" y2="18" />  <line x1="6" y1="6" x2="18" y2="18" /></svg>
+                    </label>
+                </div>
+                
+                <div class="mt-4 flex flex-col w-full">
+                    <span class="label-text font-bold mb-3">Name</span>
+                    <input type="text" placeholder="Type here" class="input input-bordered input-md w-full" />
+                </div>
+
+                <div class="modal-action mt-6">
+                    <label for="my-modal" class="btn btn-outline border-none hover:bg-gray-500 text-purple-600 hover:bg-purple-300">Close</label>
+                    <label class="btn bg-purple-600 hover:bg-purple-400 border-none">Save</label>
                 </div>
             </div>
         </div>

@@ -28,15 +28,23 @@ export default class HomeChatsController extends Controller {
   get contactListDisplayed() {
     let newList = this.chatsList;
     if (this.searchValue.toString().length > 0) {
-      newList = this.chatsList.filter((item) =>
-        item.name.toString().toLowerCase().includes(this.searchValue.toString().toLowerCase()) || item.lastname.toString().toLowerCase().includes(this.searchValue.toString().toLowerCase())
+      newList = this.chatsList.filter(
+        (item) =>
+          item.name
+            .toString()
+            .toLowerCase()
+            .includes(this.searchValue.toString().toLowerCase()) ||
+          item.lastname
+            .toString()
+            .toLowerCase()
+            .includes(this.searchValue.toString().toLowerCase())
       );
     }
     return newList;
   }
 
   get recentContacts() {
-    return this.chatsList.slice(0,3);
+    return this.chatsList.slice(0, 3);
   }
 
   @action

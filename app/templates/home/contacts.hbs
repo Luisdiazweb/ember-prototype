@@ -1,4 +1,60 @@
 {{page-title "Contacts"}}
-<div class="m-0">
-    <h1>Contacts section</h1>
+
+{{!-- Title --}}
+<div class="m-6 flex flex-row justify-between items-center">
+    <div class="text-xl font-bold">Contacts</div>
+    <label class="btn btn-outline border-none" for="my-modal">
+        <svg class="h-6 w-6 text-gray-500 hover:text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+        </svg>
+    </label>
+
+    <input type="checkbox" id="my-modal" class="modal-toggle" />
+    <div class="modal">
+        <div class="modal-box">
+            <div class="flex flex-row items-center justify-between">
+                <h3 class="font-bold text-lg">Add member</h3>
+                <label class="cursor-pointer btn btn-circle border-none btn-outline hover:bg-white" for="my-modal">
+                    <svg class="h-5 w-5 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="18" y1="6" x2="6" y2="18" />  <line x1="6" y1="6" x2="18" y2="18" /></svg>
+                </label>
+            </div>
+            
+            <div class="mt-4 flex flex-col w-full">
+                <span class="label-text font-bold mb-3">Name</span>
+                <input type="text" placeholder="Type here" class="input input-bordered input-md w-full" />
+            </div>
+
+            <div class="mt-4 flex flex-col w-full">
+                <span class="label-text font-bold mb-3">Last name</span>
+                <input type="text" placeholder="Type here" class="input input-bordered input-md w-full" />
+            </div>
+
+            <div class="mt-4 flex flex-col w-full">
+                <span class="label-text font-bold mb-3">Phone number</span>
+                <input type="text" placeholder="Type here" class="input input-bordered input-md w-full" />
+            </div>
+
+            <div class="modal-action mt-6">
+                <label for="my-modal" class="btn btn-outline border-none hover:bg-gray-500 text-purple-600 hover:bg-purple-300">Close</label>
+                <label class="btn bg-purple-600 hover:bg-purple-400 border-none">Save</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Search section --}}
+<div class="mx-6 mb-6 mt-4">
+    <input type="text" placeholder="Search users..." class="input input-bordered w-full bg-[#e7ebf4] border-none"/>
+</div>
+
+{{!-- Contact list --}}
+<div class="m-0 overflow-y-auto">
+    {{#each this.orderedContacts as |item|}}
+        <div class="mx-2 mt-6">
+            <p class="mx-4 font-bold text-purple-600">{{ item.letter }}</p>
+            {{#each item.contacts as |contact|}}
+                <ContactItem @contact={{contact}}/>
+            {{/each}}
+        </div>
+    {{/each}}
 </div>
