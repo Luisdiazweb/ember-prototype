@@ -29,10 +29,7 @@ export default class HomeChatsController extends Controller {
     let newList = this.chatsList;
     if (this.searchValue.toString().length > 0) {
       newList = this.chatsList.filter((item) =>
-        item.name
-          .toString()
-          .toLowerCase()
-          .includes(this.searchValue.toString().toLowerCase())
+        item.name.toString().toLowerCase().includes(this.searchValue.toString().toLowerCase()) || item.lastname.toString().toLowerCase().includes(this.searchValue.toString().toLowerCase())
       );
     }
     return newList;
