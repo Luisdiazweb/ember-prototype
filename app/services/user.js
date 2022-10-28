@@ -50,7 +50,7 @@ export default class UserService extends Service {
     }
   }
 
-  logoutUser(){
+  logoutUser() {
     this.user = null;
     this.deleteCookie();
   }

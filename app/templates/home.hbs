@@ -1,9 +1,9 @@
-<div class="h-scren w-screen flex">
+<div class="h-scren w-screen flex" data-theme="{{this.themeService.currentTheme}}">
     <OptionsMenu></OptionsMenu>
-    <div class="w-1/4 bg-gray-100">
+    <div class="w-1/4 bg-neutral {{if (eq this.themeService.currentTheme "darkOriginal") "text-white" "" }}">
         {{outlet}}
     </div>
-    <div class="bg-white flex-1 grow ">
+    <div class="bg-secondary flex-1 grow {{if (eq this.themeService.currentTheme "darkOriginal") "text-white" "" }}">
         <ChatWindow />
     </div>
 </div>
