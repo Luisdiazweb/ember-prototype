@@ -1,0 +1,16 @@
+<div class="m-0 p-0 mt-6 mx-2">
+    <div class="grid w-20 h-10 bg-base-300 place-items-center shadow-md">
+        <div class="avatar -mt-5">
+            <div class="w-8 rounded-full bg-white grid content-center">
+                {{#if @image}}
+                    <img src="{{@image}}" />
+                {{else}}
+                    <span class="text-3xl flex justify-center -mt-1">{{substring @name start=0 end=1}}</span>
+                {{/if}}
+            </div>
+        </div>
+        <div class="font-bold text-xs">
+            {{ @name }}
+        </div>
+    </div>
+</div>
