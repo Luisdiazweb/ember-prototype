@@ -10,6 +10,8 @@ module.exports = function (deployTarget) {
     },
 
     'git-ci': {
+      userName: 'dev11-dccolorweb',
+      userEmail: 'dev11@dccolorweb.com',
       enabled: true,
       deployKey: process.env.SECRET_KEY,
     },
