@@ -6,7 +6,7 @@ module.exports = function (deployTarget) {
     build: {},
     // include other plugin configuration that applies to all deploy targets here
     git: {
-      repo: 'git@github.com:Luisdiazweb/ember-prototype.git',
+      repo: 'https://github.com/Luisdiazweb/ember-prototype.git',
     },
 
     'git-ci': {
