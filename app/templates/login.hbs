@@ -1,5 +1,3 @@
-{{page-title "Login"}}
-
 <div class="grid justify-items-center content-center h-screen w-screen">
     {{!-- Header --}}
     <div class="text-lg font-bold">SMS CHAT - EMBER JS</div>
@@ -8,6 +6,16 @@
     {{!-- Login card --}}
     <div class="card w-96 bg-base-100 shadow-xl">
         <div class="card-body">
+            {{#if (not (eq this.userService.errorMessages.length 0))}}
+                {{#each this.userService.errorMessages as |item|}}
+                    <div class="w-full">
+                        <div class="flex flex-row text-red-700 justify-center">
+                            <svg class="h-5 w-5 text-red-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="12" cy="12" r="10" />  <line x1="12" y1="16" x2="12" y2="12" />  <line x1="12" y1="8" x2="12.01" y2="8" /></svg>
+                            <span>{{item}}</span>
+                        </div>
+                    </div>
+                {{/each}}
+            {{/if}}
             <form {{on "submit" this.verifyUser}}>
                 {{!-- Email input --}}
                 <div class="form-control w-full">
