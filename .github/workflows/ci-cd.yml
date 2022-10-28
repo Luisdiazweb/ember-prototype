@@ -51,7 +51,7 @@ jobs:
     name: Deploy app
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push'
     steps:
       - name: Check out a copy of the repo
         uses: actions/checkout@v2
