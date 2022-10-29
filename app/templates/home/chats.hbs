@@ -43,8 +43,8 @@
     {{!-- Recents section --}}
     <div class="font-bold text-lg px-6 mb-2">Recent</div>
     <div class="m-0 overflow-y-auto h-full">
-        {{#each this.contactListDisplayed as |item|}}
-            <Chat @name="{{item.name}}" @lastname="{{item.lastname}}" @image="{{item.image}}"/>
+        {{#each this.chatList as |item|}}
+            <Chat @name="{{item.name}}" @lastname="{{item.lastname}}" @image="{{item.image}}" @id="{{item.contact_id}}"/>
         {{/each}}
     </div>
 </div>

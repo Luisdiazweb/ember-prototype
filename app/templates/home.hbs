@@ -4,6 +4,6 @@
         {{outlet}}
     </div>
     <div class="bg-secondary flex-1 grow {{if (eq this.themeService.currentTheme "darkOriginal") "text-white" "" }}">
-        <ChatWindow />
+        <ChatWindow @chat={{this.chat}}/>
     </div>
 </div>
