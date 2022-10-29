@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - feature/ADD-CI-CD-PIPELINE
+  pull_request: {}
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+#  lint:
+#    name: "Lint"
+#    runs-on: ubuntu-latest
+#    timeout-minutes: 10
+
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Install Node
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 14.x
+#          cache: npm
+#      - name: Install Dependencies
+#        run: npm ci
+#      - name: Lint
+#        run: npm run lint
+
+#  test:
+#    name: "Test"
+#    runs-on: ubuntu-latest
+#    timeout-minutes: 10
+#
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Install Node
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: 14.x
+#          cache: npm
+#      - name: Install Dependencies
+#        run: npm ci
+#      - name: Run Tests
+#        run: npm test
+
+  deploy-app:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'push'
+    steps:
+      - name: Check out a copy of the repo
+        uses: actions/checkout@v2
+
+      - name: Set up Git user
+        run: |
+          # Set up a Git user for committing
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@users.noreply.github.com"
+
+          # Copy the Git Auth from the local config
+          git config --global "http.https://github.com/.extraheader" \
+            "$(git config --local --get http.https://github.com/.extraheader)"
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+          cache: npm
+      - name: Install Dependencies
+        run: npm ci
+      - name: Deploy
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+        run: yarn deploy
