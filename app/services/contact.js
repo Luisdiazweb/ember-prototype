@@ -14,7 +14,12 @@ export default class ContactService extends Service {
 
     async getContactsList() {
         const contactSnapshot = await getDocs(dbRef);
-        const contactsList = contactSnapshot.docs.map(doc => doc.data());
+        const contactsList = contactSnapshot.docs.map(doc => {
+            return {
+                id: doc.id,
+                ...doc.data()
+            }
+        });
         return contactsList;
     }
 
