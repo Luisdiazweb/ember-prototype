@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, getDoc, addDoc, setDoc, deleteDoc } from 'firebase/firestore/lite';
+import { getFirestore, collection, doc, getDocs, getDoc, addDoc, setDoc, deleteDoc } from 'firebase/firestore/lite';
 import config from '../config/environment';
 
 const app = initializeApp(config.firebase);
@@ -42,7 +42,13 @@ export default class ContactService extends Service {
     }
 
     async deleteContact(id) {
-        const contactsRef = collection(db, 'contacts', id);
-        return deleteDoc(docRef, data);
+        const contactsRef = doc(db, 'contacts', id);
+        deleteDoc(docRef)
+            .then(docRef => {
+                console.log("Entire Document has been deleted successfully");
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 }
