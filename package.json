@@ -76,6 +76,7 @@
     "edition": "octane"
   },
   "dependencies": {
-    "daisyui": "^2.33.0"
+    "daisyui": "^2.33.0",
+    "firebase": "^9.13.0"
   }
 }
