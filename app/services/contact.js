@@ -1,7 +1,4 @@
 import Service from '@ember/service';
-import {tracked} from '@glimmer/tracking';
-import chatsListExample from '../staticData/chats';
-import { action } from '@ember/object';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, getDoc, addDoc, setDoc, deleteDoc } from 'firebase/firestore/lite';
 import config from '../config/environment';
@@ -25,13 +22,13 @@ export default class ContactService extends Service {
     }
 
     async addContact(contact) {
-        addDoc(dbRef, contact)
-            .then(docRef => {
+        return addDoc(dbRef, contact);
+            /*.then(docRef => {
                 console.log("Document has been added successfully");
             })
             .catch(error => {
                 console.log(error);
-            });
+            });*/
     }
 
     async updateContact(id, newData) {

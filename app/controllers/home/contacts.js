@@ -2,18 +2,26 @@ import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
+import Swal from 'sweetalert2'
 
 export default class HomeContactsController extends Controller {
   @service contact;
   @tracked contactsList = [];
-
+  @tracked contactObject = {
+    name: '',
+    lastname: '',
+    phone: ''
+  };
   @tracked searchInput = '';
+  @tracked modalOpened = false;
+
     constructor() {
         super(...arguments);
         this.contact.getContactsList().then(contacts => this.contactsList = contacts)
     }
 
     get orderedContacts() {
+      console.log(this.contactsList)
     // get contacts list
     // this.contact.addContact({
     //     name: 'José',
@@ -45,7 +53,7 @@ export default class HomeContactsController extends Controller {
         contacts: this.contactsList.filter((item) => item.name[0] == element),
       });
     }
-    console.log(contactsOrderedList);
+
     return contactsOrderedList;
   }
 
@@ -95,5 +103,55 @@ export default class HomeContactsController extends Controller {
   @action
   updateSearchInput(event) {
     this.searchInput = event.target.value.toString();
+  }
+
+  /* Updating contact values */
+  @action
+  updateContactName(event){
+    const eventName = event.target.value;
+    this.contactObject.name = `${eventName[0].toString().toUpperCase()}${eventName.toString().slice(1)}`;
+  }
+
+  @action
+  updateContactLastname(event){
+    const eventLastName = event.target.value;
+    this.contactObject.lastname = `${eventLastName[0].toString().toUpperCase()}${eventLastName.toString().slice(1)}`;
+  }
+
+  @action
+  updateContactPhone(event){
+    this.contactObject.phone = event.target.value;
+  }
+
+  /* Manage contacts actions */
+  @action
+  async saveContact(event){
+    event.preventDefault();
+
+    await this.contact.addContact(this.contactObject).then(result => {
+      console.log("Added");
+      document.getElementById('my-modal').checked = false;
+      Swal.fire({
+        title: "Success",
+        text: "Contact added successfully!",
+        icon: 'success'
+      })
+    })
+    .catch(error => {
+      console.log("Error");
+      document.getElementById('my-modal').checked = false;
+      Swal.fire({
+        title: "Error",
+        text: "Contact cannot be added! try again.",
+        icon: 'success'
+      })
+    });
+
+    this.contact.getContactsList().then(contacts => this.contactsList = contacts)
+    this.contactObject = {
+      name: '',
+      lastname: '',
+      phone: ''
+    }
   }
 }
