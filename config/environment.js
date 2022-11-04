@@ -17,6 +17,12 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+    twilio: {
+        TWILIO_ACCOUNT_SID: 'AC0b9468c1538ca4c36ee8c74cdf687d39',
+        TWILIO_AUTH_TOKEN: '5c6df6199ffbd5676fe5aaa24d6aa780',
+        TWILIO_PHONE: '+14307585308',
+        TWILIO_API: 'https://api.twilio.com/2010-04-01/Accounts'
+    }
   };
 
   if (environment === 'development') {

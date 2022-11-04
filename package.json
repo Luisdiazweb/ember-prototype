@@ -76,6 +76,7 @@
     "edition": "octane"
   },
   "dependencies": {
-    "daisyui": "^2.33.0"
+    "daisyui": "^2.33.0",
+    "twilio": "^3.83.1"
   }
 }
