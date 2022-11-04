@@ -14,8 +14,6 @@ export default class HomeController extends Controller {
       ...chatInfo,
       messages: messages
     }
-
-    console.log(chatData)
     return chatData;
   }
 }
