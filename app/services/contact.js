@@ -28,12 +28,6 @@ export default class ContactService extends Service {
 
     async addContact(contact) {
         return addDoc(dbRef, contact);
-            /*.then(docRef => {
-                console.log("Document has been added successfully");
-            })
-            .catch(error => {
-                console.log(error);
-            });*/
     }
 
     async updateContact(id, newData) {
@@ -49,12 +43,6 @@ export default class ContactService extends Service {
 
     async deleteContact(id) {
         const contactsRef = collection(db, 'contacts', id);
-        deleteDoc(docRef, data)
-            .then(docRef => {
-                console.log("Entire Document has been updated successfully");
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        return deleteDoc(docRef, data);
     }
 }

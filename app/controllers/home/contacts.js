@@ -15,21 +15,13 @@ export default class HomeContactsController extends Controller {
   @tracked searchInput = '';
   @tracked modalOpened = false;
 
-    constructor() {
-        super(...arguments);
-        this.contact.getContactsList().then(contacts => this.contactsList = contacts)
-    }
+  constructor() {
+      super(...arguments);
+      this.contact.getContactsList().then(contacts => this.contactsList = contacts)
+  }
 
-    get orderedContacts() {
-      console.log(this.contactsList)
-    // get contacts list
-    // this.contact.addContact({
-    //     name: 'José',
-    //     lastname: 'Hernández',
-    //     phone: 3189739014
-    // })
-    // this.contact.getContactsList().then(r => this.contactsList = r)
-    
+  get orderedContacts() {
+    console.log(this.contactsList)
     let lettersList = [
       ...new Set(
         this.contactsList
@@ -143,7 +135,7 @@ export default class HomeContactsController extends Controller {
       Swal.fire({
         title: "Error",
         text: "Contact cannot be added! try again.",
-        icon: 'success'
+        icon: 'error'
       })
     });
 
@@ -153,5 +145,29 @@ export default class HomeContactsController extends Controller {
       lastname: '',
       phone: ''
     }
+  }
+
+  @action
+  async removeContact(id){
+    console.log(id);
+    await this.contact.deleteContact(id)
+    .then(result => {
+      console.log(result);
+      Swal.fire({
+        title: "Success",
+        text: "Contact removed successfully!",
+        icon: 'success'
+      })
+    })
+    .catch(error => {
+      console.log(error);
+      Swal.fire({
+        title: "Error",
+        text: "Contact cannot be removed! try again.",
+        icon: 'error'
+      })
+    });
+    
+    this.contact.getContactsList().then(contacts => this.contactsList = contacts)
   }
 }
