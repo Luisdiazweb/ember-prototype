@@ -76,6 +76,8 @@
     "edition": "octane"
   },
   "dependencies": {
-    "daisyui": "^2.33.0"
+    "daisyui": "^2.33.0",
+    "dayjs": "^1.11.6",
+    "moment": "^2.29.4"
   }
 }

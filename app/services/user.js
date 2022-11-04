@@ -34,6 +34,7 @@ export default class UserService extends Service {
     /* Remove this section for auth endpoint validation */
     if (email == emailTest && password == passwordTest) {
       this.user = {
+        id: 4,
         email: email,
         password: password,
         phone: '+318 973 9014',
