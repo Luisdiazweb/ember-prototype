@@ -1,34 +1,27 @@
 import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { service } from '@ember/service';
 
 export default class HomeContactsController extends Controller {
-  @tracked contactsList = [
-    {
-      id: 1,
-      name: 'Carlos',
-      lastname: 'Moto',
-    },
-    {
-      id: 2,
-      name: 'Luis',
-      lastname: 'Díaz',
-    },
-    {
-      id: 3,
-      name: 'José',
-      lastname: 'Hernández',
-    },
-    {
-      id: 4,
-      name: 'Kevin',
-      lastname: 'Sorto',
-    },
-  ];
+  @service contact;
+  @tracked contactsList = [];
 
   @tracked searchInput = '';
+    constructor() {
+        super(...arguments);
+        this.contact.getContactsList().then(contacts => this.contactsList = contacts)
+    }
 
-  get orderedContacts() {
+    get orderedContacts() {
+    // get contacts list
+    // this.contact.addContact({
+    //     name: 'José',
+    //     lastname: 'Hernández',
+    //     phone: 3189739014
+    // })
+    // this.contact.getContactsList().then(r => this.contactsList = r)
+    
     let lettersList = [
       ...new Set(
         this.contactsList
