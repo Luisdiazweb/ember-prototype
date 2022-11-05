@@ -43,12 +43,6 @@ export default class ContactService extends Service {
 
     async deleteContact(id) {
         const contactsRef = doc(db, 'contacts', id);
-        deleteDoc(docRef)
-            .then(docRef => {
-                console.log("Entire Document has been deleted successfully");
-            })
-            .catch(error => {
-                console.log(error);
-            })
+        return deleteDoc(contactsRef);
     }
 }

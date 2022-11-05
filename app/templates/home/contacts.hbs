@@ -50,9 +50,9 @@
     </div>
 
     {{!-- Contact list --}}
-    <div class="m-0 overflow-y-auto h-full">
+    <div class="m-0 p-0 overflow-y-auto" style="height: 100% !important">
         {{#each this.displayedContacts as |item|}}
-            <div class="mx-2 mt-6">
+            <div class="px-2 pt-6">
                 <p class="mx-4 font-bold text-purple-600">{{ item.letter }}</p>
                 {{#each item.contacts as |contact|}}
                     <ContactItem @contact={{contact}} @removeAction={{this.removeContact}}/>
@@ -60,4 +60,5 @@
             </div>
         {{/each}}
     </div>
+
 </div>
