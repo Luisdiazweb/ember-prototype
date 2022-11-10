@@ -13,4 +13,5 @@ Router.map(function () {
     this.route('contacts');
     this.route('chats', { path: '/' });
   });
+  this.route('not-found', { path: '/*path' });
 });

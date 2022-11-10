@@ -24,6 +24,7 @@ export default class HomeRoute extends Route {
 
     /* Setting up chat template controller */
     chatController.chatList = rawChatList;
-    this.chatService.currentChat = rawChatList.length > 0 ? rawChatList[0] : null;
+    this.chatService.currentChat =
+      rawChatList.length > 0 ? rawChatList[0] : null;
   }
 }

@@ -8,12 +8,15 @@ export default class HomeController extends Controller {
   @service('user') userService;
 
   get chat() {
-    let chatInfo = this.chatService.currentChat
-    let messages = this.messageService.getMessages(chatInfo.contact_id, this.userService.user.id)
+    let chatInfo = this.chatService.currentChat;
+    let messages = this.messageService.getMessages(
+      chatInfo.contact_id,
+      this.userService.user.id
+    );
     let chatData = {
       ...chatInfo,
-      messages: messages
-    }
+      messages: messages,
+    };
     return chatData;
   }
 }
