@@ -1,6 +1,9 @@
 <div class="m-0 p-0 h-full flex flex-col overflow-hidden">
     <div class="shadow-lg flex flex-row justify-between items-center h-16 px-4 bg-accent">
         <div class="flex items-center flex-row">
+
+            {{!-- Avatar section --}}
+            {{#if this.chatExists}}
             <div class="avatar grid justify-center content-center placeholder">
                 <div class="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 grid justify-center content-center bg-slate-800 text-white flex items-center">
                     {{#if @chat.image}}
@@ -10,40 +13,61 @@
                     {{/if}}
                 </div>
             </div>
-            <span class="font-bold text-lg ml-6">
-                {{@chat.name}} {{@chat.lastname}}
-            </span>
+            {{/if}}
+            
+            {{!-- Chata title name --}}
+            {{#if this.chatExists}}
+                <span class="font-bold text-lg ml-6">
+                    {{@chat.name}} {{@chat.lastname}}
+                </span>
+            {{/if}}
         </div>
-
-        <div class="dropdown dropdown-end">
-            <label tabindex="0" class="btn m-1 btn-outline hover:bg-gray-100 border-none">
-                <svg class="h-6 w-6 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="5" cy="12" r="1" />  <circle cx="12" cy="12" r="1" />  <circle cx="19" cy="12" r="1" /></svg>
-            </label>
-            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 py-4 text-black">
-                <li class="text-center">Delete conversation</li>
-            </ul>
-        </div>
+        
+        {{!-- Dropdown options --}}
+        {{#if this.chatExists}}
+            <div class="dropdown dropdown-end">
+                <label tabindex="0" class="btn m-1 btn-outline hover:bg-gray-100 border-none">
+                    <svg class="h-6 w-6 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="5" cy="12" r="1" />  <circle cx="12" cy="12" r="1" />  <circle cx="19" cy="12" r="1" /></svg>
+                </label>
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 py-4 text-black">
+                    <li class="text-center">Delete conversation</li>
+                </ul>
+            </div>
+        {{/if}}
     </div>
 
-    {{#if (eq this.computedMessages.length 0)}}
-        <div class="m-0 h-fit w-full grow flex items-start justify-center">
-            <div class="alert shadow-lg m-10 bg-neutral">
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span>There are not messages yet.</span>
+    {{!-- Chat messages section --}}
+    {{#if this.chatExists}}
+        {{#if (eq this.computedMessages.length 0)}}
+            <div class="m-0 h-fit w-full grow flex items-start justify-center">
+                <div class="alert shadow-lg m-10 bg-neutral">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>There are not messages yet.</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        {{else}}
+            <div class="m-0 max-h-full overflow-y-auto px-6 pt-4 flex flex-col-reverse w-full">
+                {{#each this.computedMessages as |message|}}
+                    <Message @message={{message}} />    
+                {{/each}}
+            </div>
+        {{/if}}
     {{else}}
-        <div class="m-0 max-h-full overflow-y-auto px-6 pt-4 flex flex-col-reverse w-full">
-            {{#each this.computedMessages as |message|}}
-                <Message @message={{message}} />    
-            {{/each}}
+        <div class="flex flex-col justify-center">
+            <div class="flex justify-center">
+                <svg class="h-32 w-32  mt-16 {{if (eq this.themeService.currentTheme "darkOriginal") "text-white" "text-black" }}"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" /></svg>
+            </div>
+            <div class="text-lg ml-6 font-bold text-center {{if (eq this.themeService.currentTheme "darkOriginal") "text-white" "text-black" }}">No chat selected.</div>
         </div>
     {{/if}}
+
+
+    {{!-- Controls --}}
     <div class="m-0 h-20 w-full mt-auto flex items-center flex-row px-6 py-4 bg-accent">
         <input type="text" placeholder="Type message" class="input input-bordered w-full bg-[#e7ebf4] border-none text-black"/>
-        <button class="btn btn-primary mx-2" type="button">
+        <button class="btn btn-primary mx-2" type="button" disabled={{this.disableSentButton}}>
             <svg class="h-6 w-6 text-white"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="10" y1="14" x2="21" y2="3" />  <path d="M21 3L14.5 21a.55 .55 0 0 1 -1 0L10 14L3 10.5a.55 .55 0 0 1 0 -1L21 3" /></svg>
         </button>
     </div>

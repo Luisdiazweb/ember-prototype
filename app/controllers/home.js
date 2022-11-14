@@ -9,14 +9,6 @@ export default class HomeController extends Controller {
 
   get chat() {
     let chatInfo = this.chatService.currentChat;
-    let messages = this.messageService.getMessages(
-      chatInfo.contact_id,
-      this.userService.user.id
-    );
-    let chatData = {
-      ...chatInfo,
-      messages: messages,
-    };
-    return chatData;
+    return chatInfo;
   }
 }

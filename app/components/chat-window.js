@@ -4,9 +4,10 @@ import moment from 'moment';
 
 export default class ChatWindowComponent extends Component {
   @service('user') userService;
+  @service('theme') themeService;
 
   get computedMessages() {
-    let messages = this.args.chat.messages.map((item) => {
+    /*let messages = this.args.chat.messages.map((item) => {
       return {
         ...item,
         mine: item.from == this.userService.user.id,
@@ -31,7 +32,16 @@ export default class ChatWindowComponent extends Component {
       }
     }
 
-    return messages.reverse();
+    return messages.reverse();*/
+    return this.args.chat.messages
+  }
+
+  get chatExists(){
+    return this.args.chat != null;
+  }
+
+  get disableSentButton(){
+    return !this.chatExists;
   }
 
   formatDate(date) {

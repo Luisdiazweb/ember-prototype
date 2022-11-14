@@ -1,6 +1,5 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 
 export default class UserService extends Service {
   @tracked user = null;
@@ -37,11 +36,11 @@ export default class UserService extends Service {
         id: 4,
         email: email,
         password: password,
-        phone: '+318 973 9014',
+        phone: '+1 430 7585308',
         description:
           'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas vitae illo deleniti qui, esse eos laborum quisquam eum obcaecati.',
-        name: 'Carlos',
-        lastname: 'Moto',
+        name: 'Luis',
+        lastname: 'Madrid',
       };
       return true;
     } else {

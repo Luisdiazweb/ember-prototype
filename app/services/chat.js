@@ -14,25 +14,26 @@ import {
 export default class ChatService extends Service {
   @tracked currentChat = null;
   @tracked chatList = null;
+  
   @service contact;
 
   constructor() {
     super(...arguments);
-    createConversation({
+    /*createConversation({
       id: 'vEspsW8uONMWEGbVY5RK',
       name: 'Kevin',
       phone: '+50375531593',
-    }).then((r) => console.log(r));
+    }).then((r) => console.log(r));*/
     // this.addConversationMessage('CH15b6a2d7553d4277b46655c1df785e0e', 'Test message from ember app');
   }
 
-  getChatList() {
-    this.chatList = chatsListExample;
-    return this.chatList;
+  async getChatList() {
+    this.chatList =  await this.contact.getContactsList();
+    return await this.chatList;
   }
 
   getChatDetails(user_id) {
-    return chatsListExample.filter((item) => item.contact_id == user_id)[0];
+    return null;
   }
 
   @action

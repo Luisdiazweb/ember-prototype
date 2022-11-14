@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 
 export default class HomeContactsController extends Controller {
   @service contact;
+  @tracked loading= true;
   @tracked contactsList = [];
   @tracked contactObject = {
     name: '',
@@ -17,13 +18,19 @@ export default class HomeContactsController extends Controller {
 
   constructor() {
     super(...arguments);
-    this.contact
-      .getContactsList()
-      .then((contacts) => (this.contactsList = contacts));
+    this.loading = true;
+    this.contact.getContactsList()
+      .then((contacts) => {
+        this.contactsList = contacts;
+        this.loading = false;
+      })
+      .catch(error => {
+        this.loading = false;
+      });
   }
 
   get orderedContacts() {
-    console.log(this.contactsList);
+
     let lettersList = [
       ...new Set(
         this.contactsList

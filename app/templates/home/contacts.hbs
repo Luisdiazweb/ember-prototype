@@ -51,24 +51,33 @@
 
     {{!-- Contact list --}}
     <div class="m-0 p-0 overflow-y-auto pb-12" style="height: 100% !important">
-        {{#if (eq this.displayedContacts.length 0)}}
-        <div class="m-0 p-4">
-            <div class="alert shadow-lg">
-                <div class="text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span class="ml-2">No contacts added.</span>
-                </div>
+        {{!-- Loading section --}}
+        {{#if this.loading}}
+            <div class="flex justify-center">
+                <div class="loader"></div>
             </div>
-        </div>
+        
+        {{!-- Content section --}}
         {{else}}
-            {{#each this.displayedContacts as |item|}}
-                <div class="px-2 pt-6">
-                    <p class="mx-4 font-bold text-purple-600">{{ item.letter }}</p>
-                    {{#each item.contacts as |contact|}}
-                        <ContactItem @contact={{contact}} @removeAction={{this.removeContact}}/>
-                    {{/each}}
+            {{#if (eq this.displayedContacts.length 0)}}
+                <div class="m-0 p-4">
+                    <div class="alert shadow-lg">
+                        <div class="text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="ml-2">No contacts added.</span>
+                        </div>
+                    </div>
                 </div>
-            {{/each}}        
+            {{else}}
+                {{#each this.displayedContacts as |item|}}
+                    <div class="px-2 pt-6">
+                        <p class="mx-4 font-bold text-purple-600">{{ item.letter }}</p>
+                        {{#each item.contacts as |contact|}}
+                            <ContactItem @contact={{contact}} @removeAction={{this.removeContact}}/>
+                        {{/each}}
+                    </div>
+                {{/each}}        
+            {{/if}}
         {{/if}}
     </div>
 
