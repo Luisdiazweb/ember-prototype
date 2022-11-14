@@ -21,7 +21,6 @@ export default class HomeChatsController extends Controller {
   }
 
   get chatList(){
-    console.log(this.chatService.chatList);
     return this.chatService.chatList;
   }
 
@@ -103,7 +102,8 @@ export default class HomeChatsController extends Controller {
       })
     });
 
-    await this.chatService.getFullConversations()
+    await this.contactService.getFullContacts();
+    await this.chatService.getFullConversations();
   }
 
   restoreCreateAction(){

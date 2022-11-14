@@ -1,7 +1,5 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import chatsListExample from '../staticData/chats';
-import config from '../config/environment';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import {
@@ -36,7 +34,7 @@ export default class ChatService extends Service {
       });
   }
 
-  async getFullConversations(){
+  async getFullConversations(setDefaultChat = true, sidSelected = null){
     this.loading = true;
     await this.getConversationsData();
     for (let index = 0; index < this.chatList.length; index++) {
@@ -56,7 +54,27 @@ export default class ChatService extends Service {
         });
       });
     }
+    /* Setting new current chat */
+    if(setDefaultChat){
+      this.selectCurrentChat();
+    }else{
+      this.selectSpecificChat(sidSelected);
+    }
     this.loading = false;
+  }
+
+  selectSpecificChat(sid){
+    this.currentChat = null;
+    if(this.chatList.length > 0 && sid){
+      this.currentChat = this.chatList.filter(item => item.sid == sid)[0];
+    }
+  }
+
+  selectCurrentChat(){
+    this.currentChat = null;
+    if(this.chatList.length > 0){
+      this.currentChat = this.chatList[0];
+    }
   }
 
   formatDate(date) {
