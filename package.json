@@ -77,6 +77,9 @@
   },
   "dependencies": {
     "daisyui": "^2.33.0",
-    "twilio": "^3.83.1"
+    "twilio": "^3.83.1",
+    "firebase": "^9.13.0",
+    "moment": "^2.29.4",
+    "sweetalert2": "^11.6.5"
   }
 }

@@ -22,7 +22,17 @@ module.exports = function (environment) {
         TWILIO_AUTH_TOKEN: '5c6df6199ffbd5676fe5aaa24d6aa780',
         TWILIO_PHONE: '+14307585308',
         TWILIO_API: 'https://api.twilio.com/2010-04-01/Accounts'
-    }
+    },
+    firebase: {
+      apiKey: 'AIzaSyCdYuZmSYqihhua2aQ_VAl5poUeXx50MfA',
+      authDomain: 'emberjs-prototype.firebaseapp.com',
+      databaseURL: 'https://emberjs-prototype.firebaseio.com',
+      projectId: 'emberjs-prototype',
+      storageBucket: 'emberjs-prototype.appspot.com',
+      messagingSenderId: '667986486698',
+      appId: '1:667986486698:web:43740e26197047e32d77d3',
+      measurementId: 'G-1V2VV220NG',
+    },
   };
 
   if (environment === 'development') {

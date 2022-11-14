@@ -1,34 +1,29 @@
 import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { service } from '@ember/service';
+import Swal from 'sweetalert2';
 
 export default class HomeContactsController extends Controller {
-  @tracked contactsList = [
-    {
-      id: 1,
-      name: 'Carlos',
-      lastname: 'Moto',
-    },
-    {
-      id: 2,
-      name: 'Luis',
-      lastname: 'Díaz',
-    },
-    {
-      id: 3,
-      name: 'José',
-      lastname: 'Hernández',
-    },
-    {
-      id: 4,
-      name: 'Kevin',
-      lastname: 'Sorto',
-    },
-  ];
-
+  @service contact;
+  @tracked contactsList = [];
+  @tracked contactObject = {
+    name: '',
+    lastname: '',
+    phone: '',
+  };
   @tracked searchInput = '';
+  @tracked modalOpened = false;
+
+  constructor() {
+    super(...arguments);
+    this.contact
+      .getContactsList()
+      .then((contacts) => (this.contactsList = contacts));
+  }
 
   get orderedContacts() {
+    console.log(this.contactsList);
     let lettersList = [
       ...new Set(
         this.contactsList
@@ -52,7 +47,7 @@ export default class HomeContactsController extends Controller {
         contacts: this.contactsList.filter((item) => item.name[0] == element),
       });
     }
-    console.log(contactsOrderedList);
+
     return contactsOrderedList;
   }
 
@@ -102,5 +97,90 @@ export default class HomeContactsController extends Controller {
   @action
   updateSearchInput(event) {
     this.searchInput = event.target.value.toString();
+  }
+
+  /* Updating contact values */
+  @action
+  updateContactName(event) {
+    const eventName = event.target.value;
+    this.contactObject.name = `${eventName[0]
+      .toString()
+      .toUpperCase()}${eventName.toString().slice(1)}`;
+  }
+
+  @action
+  updateContactLastname(event) {
+    const eventLastName = event.target.value;
+    this.contactObject.lastname = `${eventLastName[0]
+      .toString()
+      .toUpperCase()}${eventLastName.toString().slice(1)}`;
+  }
+
+  @action
+  updateContactPhone(event) {
+    this.contactObject.phone = event.target.value;
+  }
+
+  /* Manage contacts actions */
+  @action
+  async saveContact(event) {
+    event.preventDefault();
+
+    await this.contact
+      .addContact(this.contactObject)
+      .then((result) => {
+        console.log('Added');
+        document.getElementById('my-modal').checked = false;
+        Swal.fire({
+          title: 'Success',
+          text: 'Contact added successfully!',
+          icon: 'success',
+        });
+      })
+      .catch((error) => {
+        console.log('Error');
+        document.getElementById('my-modal').checked = false;
+        Swal.fire({
+          title: 'Error',
+          text: 'Contact cannot be added! try again.',
+          icon: 'error',
+        });
+      });
+
+    this.contact
+      .getContactsList()
+      .then((contacts) => (this.contactsList = contacts));
+    this.contactObject = {
+      name: '',
+      lastname: '',
+      phone: '',
+    };
+  }
+
+  @action
+  async removeContact(id) {
+    console.log(id);
+    await this.contact
+      .deleteContact(id)
+      .then((result) => {
+        console.log(result);
+        Swal.fire({
+          title: 'Success',
+          text: 'Contact removed successfully!',
+          icon: 'success',
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Contact cannot be removed! try again.',
+          icon: 'error',
+        });
+      });
+
+    this.contact
+      .getContactsList()
+      .then((contacts) => (this.contactsList = contacts));
   }
 }
