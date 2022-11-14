@@ -9,6 +9,7 @@ import {
   addDoc,
   setDoc,
   deleteDoc,
+  updateDoc,
 } from 'firebase/firestore/lite';
 import config from '../config/environment';
 
@@ -40,12 +41,27 @@ export default class ContactService extends Service {
 
   async updateContact(id, newData) {
     const contactsRef = collection(db, 'contacts', id);
-    setDoc(docRef, data)
+    setDoc(contactsRef, newData)
       .then((docRef) => {
         console.log('Entire Document has been updated successfully');
       })
       .catch((error) => {
         console.log(error);
+      });
+  }
+
+  async setContactConversationSid(id, sid) {
+    const contactsRef = doc(db, 'contacts', id);
+    const data = {
+      conversationSid: sid,
+    };
+
+    updateDoc(contactsRef, data)
+      .then((docRef) => {
+        console.log('Entire Document has been updated successfully', docRef);
+      })
+      .catch((error) => {
+        console.log('Error', error);
       });
   }
 
