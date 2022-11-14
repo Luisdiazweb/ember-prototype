@@ -73,6 +73,28 @@ export async function deleteConversation(sid) {
 }
 
 /**
+ * Read multiple Conversation resources.
+ * @param pageSize number of conversations per page.
+ * @returns {Promise<any>}
+ */
+export async function getAllConversations(pageSize = 20) {
+  try {
+    const response = await fetch(
+      `https://conversations.twilio.com/v1/Conversations?PageSize=${pageSize}`,
+      {
+        method: 'get',
+        headers: {
+          Authorization: TWILIO_AUTHENTICATION,
+        },
+      }
+    );
+    return await response.json();
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+/**
  * This function allows to add a participant to a new conversation, is called inside the `createConversation` function, just after to create a new contact.
  * @param sid
  * @param phone
