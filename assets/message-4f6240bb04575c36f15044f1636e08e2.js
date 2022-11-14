@@ -149,9 +149,11 @@ return await n.json()}catch(n){console.log(n)}},e.addConversationParticipant=l,e
 if(!r.ok)return void console.log(r.status,i.message)
 if(!("sid"in i))return void console.log("Conversation SID not found")
 await async function(e,t){const r=(0,n.doc)(o,"contacts",e),i={conversationSid:t};(0,n.updateDoc)(r,i).then((e=>{console.log("Entire Document has been updated successfully",e)})).catch((e=>{console.log("Error",e)}))}(e.id,i.sid),await l(i.sid,e.phone),console.log(r,i)}catch(r){console.log(r)}},e.deleteConversation=async function(e){try{const t=await fetch(`https://conversations.twilio.com/v1/Conversations/${e}`,{method:"delete",headers:{Authorization:a}})
+return await t.json()}catch(t){console.log(t)}},e.getAllConversations=async function(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:20
+try{const t=await fetch(`https://conversations.twilio.com/v1/Conversations?PageSize=${e}`,{method:"get",headers:{Authorization:a}})
 return await t.json()}catch(t){console.log(t)}},e.getContactConversationMessages=async function(e){try{const t=await fetch(`https://conversations.twilio.com/v1/Conversations/${e}/Messages`,{method:"get",headers:{Authorization:a}})
 return await t.json()}catch(t){console.log(t)}}
 const i=(0,r.initializeApp)(t.default.firebase),o=(0,n.getFirestore)(i),a="Basic "+btoa(`${t.default.twilio.TWILIO_ACCOUNT_SID}:${t.default.twilio.TWILIO_AUTH_TOKEN}`)
 async function l(e,r){try{const n=await fetch(`https://conversations.twilio.com/v1/Conversations/${e}/Participants`,{method:"POST",headers:{Authorization:a,"Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"},body:new URLSearchParams({"MessagingBinding.Address":r,"MessagingBinding.ProxyAddress":t.default.twilio.TWILIO_PHONE})})
 return await n.json()}catch(n){console.log(n)}}})),define("message/config/environment",[],(function(){try{var e="message/config/environment",t=document.querySelector('meta[name="'+e+'"]').getAttribute("content"),r={default:JSON.parse(decodeURIComponent(t))}
-return Object.defineProperty(r,"__esModule",{value:!0}),r}catch(n){throw new Error('Could not read config from meta tag with name "'+e+'".')}})),runningTests||require("message/app").default.create({name:"message",version:"0.0.0+8537b94a"})
+return Object.defineProperty(r,"__esModule",{value:!0}),r}catch(n){throw new Error('Could not read config from meta tag with name "'+e+'".')}})),runningTests||require("message/app").default.create({name:"message",version:"0.0.0+6e46a8b6"})
