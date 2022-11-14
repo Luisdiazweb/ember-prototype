@@ -2,6 +2,10 @@ import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import Swal from 'sweetalert2';
+import {
+  createConversation
+} from '../../twilio/conversations';
 
 export default class HomeChatsController extends Controller {
   @tracked searchValue = '';
@@ -9,6 +13,7 @@ export default class HomeChatsController extends Controller {
   @tracked contactsList = [];
   @tracked loadingChats = true;
   @tracked loadingContacts = true;
+  @tracked selectedChatUser = null;
 
   @service contact;
   @service('chat') chatService;
@@ -45,7 +50,7 @@ export default class HomeChatsController extends Controller {
     let newList = this.chatList;
 
     if (this.searchValue.toString().length > 0) {
-      newList = this.chatsList.filter(
+      newList = this.chatList.filter(
         (item) =>
           item.name
             .toString()
@@ -60,9 +65,56 @@ export default class HomeChatsController extends Controller {
     return newList;
   }
 
+  get newChatUserName(){
+    if(this.selectedUser){
+      return `${this.selectedChatUser.name} ${this.selectedChatUser.lastname}`
+    }else{
+      return '';
+    }
+  }
+
+  get existsNewChatUser(){
+    return this.selectedChatUser == null;
+  }
+
   @action
   updateSearchValue(event) {
-    console.log('Search active');
     this.searchValue = event.target.value.toString();
+  }
+
+  @action
+  setSelectedUser(event){
+    console.log(event.target.value);
+    this.selectedChatUser = this.contactsList.filter(item => item.id == event.target.value)[0];
+    console.log(this.selectedChatUser);
+  }
+
+  @action
+  async createNewConversation(){
+    await createConversation({
+      ...this.selectedChatUser
+    }).then(response => {
+      console.log(response);
+      document.getElementById('my-modal-conversation').checked = false;
+      this.restoreCreateAction();
+      Swal.fire({
+        title: "Successfully created!",
+        icon: "success"
+      });
+    })
+    .catch(error => {
+      console.error(error);
+      document.getElementById('my-modal-conversation').checked = false;
+      Swal.fire({
+        title: "Error creating a conversation!",
+        text: error.toString(),
+        icon: "error"
+      })
+    });
+  }
+
+  restoreCreateAction(){
+    this.selectedChatUser = null;
+    document.getElementById('contacts_selector').selectedIndex = 0;
   }
 }

@@ -136,7 +136,6 @@ export default class HomeContactsController extends Controller {
     await this.contact
       .addContact(this.contactObject)
       .then((result) => {
-        console.log('Added');
         document.getElementById('my-modal').checked = false;
         Swal.fire({
           title: 'Success',
@@ -166,7 +165,7 @@ export default class HomeContactsController extends Controller {
 
   @action
   async removeContact(id) {
-    console.log(id);
+
     await this.contact
       .deleteContact(id)
       .then((result) => {
