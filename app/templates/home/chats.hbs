@@ -70,7 +70,7 @@
                 </div>
             {{else}}
                 {{#each this.contactListDisplayed as |item|}}
-                    <Chat @name="{{item.name}}" @lastname="{{item.lastname}}" @image="{{item.image}}" @id="{{item.contact_id}}"/>
+                    <Chat @name="{{item.name}}" @lastname="{{item.lastname}}" @image="{{item.image}}" @sid="{{item.sid}}" @messages={{item.messages}}/>
                 {{/each}}
             {{/if}}
         {{/if}}

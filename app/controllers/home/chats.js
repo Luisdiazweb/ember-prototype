@@ -4,46 +4,37 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Swal from 'sweetalert2';
 import {
-  createConversation
+  createConversation,
+  addConversationMessage
 } from '../../twilio/conversations';
 
 export default class HomeChatsController extends Controller {
   @tracked searchValue = '';
-  @tracked chatList = [];
-  @tracked contactsList = [];
-  @tracked loadingChats = true;
-  @tracked loadingContacts = true;
   @tracked selectedChatUser = null;
 
-  @service contact;
+  @service('contact') contactService;
   @service('chat') chatService;
 
   constructor(){
     super(...arguments);
+    /*addConversationMessage("CHbcef6be3a8f0490c99639367fe4c6842","Hey!, this is a testing message");*/
+  }
 
-    /* Getting contacts for modal */
-    this.loadingContacts = true;
-    this.contact.getContactsList()
-    .then((contacts) => {
-      this.contactsList = contacts;
-      this.loadingContacts = false;
-    })
-    .catch(error => {
-      this.contactsList = [];
-      this.loadingContacts = false;
-    });
+  get chatList(){
+    console.log(this.chatService.chatList);
+    return this.chatService.chatList;
+  }
 
-    /* Getting chats */
-    this.loadingChats = true;
-    this.chatList = this.chatService.getChatList()
-    .then(response => {
-      this.chatList = response;
-      this.loadingChats = false;
-    })
-    .catch(error => {
-      this.chatList = [];
-      this.loadingChats = false;
-    });
+  get loadingChats(){
+    return this.chatService.loading;
+  }
+
+  get contactsList(){
+    return this.contactService.contactsList;
+  }
+
+  get loadingContacts(){
+    return this.contactService.loading;
   }
 
   get contactListDisplayed() {
@@ -92,9 +83,9 @@ export default class HomeChatsController extends Controller {
   @action
   async createNewConversation(){
     await createConversation({
-      ...this.selectedChatUser
+      ...this.selectedChatUser,
+      phone: `+${this.selectedChatUser.phone}`
     }).then(response => {
-      console.log(response);
       document.getElementById('my-modal-conversation').checked = false;
       this.restoreCreateAction();
       Swal.fire({
@@ -111,6 +102,8 @@ export default class HomeChatsController extends Controller {
         icon: "error"
       })
     });
+
+    await this.chatService.getFullConversations()
   }
 
   restoreCreateAction(){

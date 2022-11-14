@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+import {tracked} from '@glimmer/tracking';
 import { initializeApp } from 'firebase/app';
 import {
   getFirestore,
@@ -18,6 +19,25 @@ const db = getFirestore(app);
 const dbRef = collection(db, 'contacts');
 
 export default class ContactService extends Service {
+  /* Variables */
+  @tracked contactsList = [];
+  @tracked loading = true;
+
+  /* Initialization  / Update */
+  async getFullContacts(){
+    this.loading = true;
+    await this.getContactsList()
+    .then((contacts) => {
+      this.contactsList = contacts;
+      this.loading = false;
+    })
+    .catch(error => {
+      console.log(error);
+      this.loading = false;
+    });
+  }
+
+  /* Async Functions */
   async getContactsList() {
     const contactSnapshot = await getDocs(dbRef);
     const contactsList = contactSnapshot.docs.map((doc) => {

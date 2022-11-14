@@ -1,4 +1,4 @@
-<div class="grid grid-cols-3 py-4 hover:bg-accent cursor-pointer" {{on 'click' (fn this.chatService.setCurrentChat @id)}}>
+<div class="grid grid-cols-3 py-4 hover:bg-accent cursor-pointer" {{on 'click' (fn this.chatService.setCurrentChat @sid)}}>
     {{!-- Avatar image --}}
     <div class="avatar grid justify-center content-center placeholder">
         <div class="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 grid justify-center content-center">
@@ -12,10 +12,10 @@
     <div class="col-span-2">
         <div class="flex justify-between pr-4 align-center">
             <span class="font-bold">{{ @name }}&nbsp;{{@lastname}}</span>
-            <span class="text-sm">16:42 PM</span>
+            <span class="text-sm">{{this.lastMessageDate}}</span>
         </div>
         <div class="text-base">
-            Hello! there
+            {{this.firstMessage}}
         </div>
     </div>
 </div>

@@ -89,8 +89,10 @@ export async function getAllConversations(pageSize = 20) {
       }
     );
     return await response.json();
+
   } catch (e) {
     console.log(e);
+    return [];
   }
 }
 

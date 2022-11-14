@@ -3,11 +3,13 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import Swal from 'sweetalert2';
+import {
+  deleteConversation
+} from '../../twilio/conversations';
 
 export default class HomeContactsController extends Controller {
   @service contact;
-  @tracked loading= true;
-  @tracked contactsList = [];
+  @service('chat') chatService;
   @tracked contactObject = {
     name: '',
     lastname: '',
@@ -16,21 +18,15 @@ export default class HomeContactsController extends Controller {
   @tracked searchInput = '';
   @tracked modalOpened = false;
 
-  constructor() {
-    super(...arguments);
-    this.loading = true;
-    this.contact.getContactsList()
-      .then((contacts) => {
-        this.contactsList = contacts;
-        this.loading = false;
-      })
-      .catch(error => {
-        this.loading = false;
-      });
+  get contactsList(){
+    return this.contact.contactsList;
+  }
+
+  get loadingContacts(){
+    return this.contact.loading;
   }
 
   get orderedContacts() {
-
     let lettersList = [
       ...new Set(
         this.contactsList
@@ -133,8 +129,8 @@ export default class HomeContactsController extends Controller {
   async saveContact(event) {
     event.preventDefault();
 
-    await this.contact
-      .addContact(this.contactObject)
+    /* Creating contact */
+    await this.contact.addContact(this.contactObject)
       .then((result) => {
         document.getElementById('my-modal').checked = false;
         Swal.fire({
@@ -153,9 +149,7 @@ export default class HomeContactsController extends Controller {
         });
       });
 
-    this.contact
-      .getContactsList()
-      .then((contacts) => (this.contactsList = contacts));
+    this.contact.getFullContacts();
     this.contactObject = {
       name: '',
       lastname: '',
@@ -166,6 +160,11 @@ export default class HomeContactsController extends Controller {
   @action
   async removeContact(id) {
 
+    /* Removing conversation */
+    let contact = this.contactsList.filter(item => item.id == id)[0];
+    await deleteConversation(contact.conversationSid);
+
+    /* Removing contact */
     await this.contact
       .deleteContact(id)
       .then((result) => {
@@ -185,8 +184,8 @@ export default class HomeContactsController extends Controller {
         });
       });
 
-    this.contact
-      .getContactsList()
-      .then((contacts) => (this.contactsList = contacts));
+      /* Retrieving data */
+      await this.contact.getFullContacts();
+      await this.chatService.getFullConversations();
   }
 }
