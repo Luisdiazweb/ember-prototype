@@ -160,6 +160,16 @@ export default class HomeContactsController extends Controller {
   @action
   async removeContact(id) {
 
+    /* Loading window */
+    Swal.fire({
+      title: 'Please Wait!',
+      html: 'Deleting contact...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });
+
     /* Removing conversation */
     let contact = this.contactsList.filter(item => item.id == id)[0];
     await deleteConversation(contact.conversationSid);
@@ -169,6 +179,7 @@ export default class HomeContactsController extends Controller {
       .deleteContact(id)
       .then((result) => {
         console.log(result);
+        Swal.close();
         Swal.fire({
           title: 'Success',
           text: 'Contact removed successfully!',
@@ -177,6 +188,7 @@ export default class HomeContactsController extends Controller {
       })
       .catch((error) => {
         console.log(error);
+        Swal.close();
         Swal.fire({
           title: 'Error',
           text: 'Contact cannot be removed! try again.',

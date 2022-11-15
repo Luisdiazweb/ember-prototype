@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 
 export default class ChatComponent extends Component {
   @service('chat') chatService;
+  @service('theme') themeService;
 
   get firstMessage(){
     let firstMessageVar = 'No messages sent.';

@@ -1,7 +1,7 @@
-<div class="grid grid-cols-3 py-4 hover:bg-accent cursor-pointer" {{on 'click' (fn this.chatService.setCurrentChat @sid)}}>
+<div class="grid grid-cols-5 py-4 hover:bg-accent cursor-pointer" {{on 'click' (fn this.chatService.setCurrentChat @sid)}}>
     {{!-- Avatar image --}}
-    <div class="avatar grid justify-center content-center placeholder">
-        <div class="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 grid justify-center content-center">
+    <div class="avatar grid justify-center content-center placeholder col-span-1">
+        <div class="w-10 h-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 grid justify-center content-center {{if (eq this.themeService.currentTheme "darkOriginal") "bg-white text-black" "bg-slate-800 text-white" }}">
             {{#if @image}}
                 <img src="{{@image}}" />
             {{else}}
@@ -9,7 +9,7 @@
             {{/if}}
         </div>
     </div>
-    <div class="col-span-2">
+    <div class="col-span-4">
         <div class="flex justify-between pr-4 align-center">
             <span class="font-bold">{{ @name }}&nbsp;{{@lastname}}</span>
             <span class="text-sm">{{this.lastMessageDate}}</span>
