@@ -11,7 +11,7 @@
                 {{#if @message.avatar}}
                     <img src="{{@message.avatar}}" />
                 {{else}}
-                    <span class="text-3xl">{{substring @message.contactName start=0 end=1}}</span>
+                    <span class="text-2xl">{{substring @message.contactName start=0 end=1}}</span>
                 {{/if}}
             </div>
         </div>
@@ -31,7 +31,11 @@
                 {{#if @message.avatar}}
                     <img src="{{@message.avatar}}" />
                 {{else}}
-                    <span class="text-3xl">{{substring @message.contactName start=0 end=1}}</span>
+                    {{#if @message.name}}
+                        <span class="text-2xl">{{substring @message.contactName start=0 end=1}}</span>
+                    {{else}}
+                        <span class="text-2xl">{{substring "User" start=0 end=1}}</span>
+                    {{/if}}
                 {{/if}}
             </div>
         </div>

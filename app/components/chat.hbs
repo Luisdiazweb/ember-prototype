@@ -5,13 +5,17 @@
             {{#if @image}}
                 <img src="{{@image}}" />
             {{else}}
-                <span class="text-3xl">{{substring @name start=0 end=1}}</span>
+                {{#if @name}}
+                    <span class="text-3xl">{{substring @name start=0 end=1}}</span>
+                {{else}}
+                    <span class="text-3xl">{{substring "User" start=0 end=1}}</span>
+                {{/if}}
             {{/if}}
         </div>
     </div>
     <div class="col-span-4">
         <div class="flex justify-between pr-4 align-center">
-            <span class="font-bold">{{ @name }}&nbsp;{{@lastname}}</span>
+            <span class="font-bold">{{if @name @name "Unknown"}}&nbsp;{{if @lastname @lastname "contact"}}</span>
             <span class="text-sm">{{this.lastMessageDate}}</span>
         </div>
         <div class="text-base">

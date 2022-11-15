@@ -15,11 +15,6 @@ export default class HomeChatsController extends Controller {
   @service('contact') contactService;
   @service('chat') chatService;
 
-  constructor(){
-    super(...arguments);
-    /*addConversationMessage("CHbcef6be3a8f0490c99639367fe4c6842","Hey!, this is a testing message");*/
-  }
-
   get chatList(){
     return this.chatService.chatList;
   }
@@ -83,7 +78,7 @@ export default class HomeChatsController extends Controller {
   async createNewConversation(){
     await createConversation({
       ...this.selectedChatUser,
-      phone: `+${this.selectedChatUser.phone}`
+      phone: `+1${this.selectedChatUser.phone}`
     }).then(response => {
       document.getElementById('my-modal-conversation').checked = false;
       this.restoreCreateAction();

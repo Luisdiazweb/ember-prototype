@@ -9,7 +9,11 @@
                     {{#if @chat.image}}
                         <img src="{{@chat.image}}" />
                     {{else}}
-                        <span class="text-3xl">{{substring @chat.name start=0 end=1}}</span>
+                        {{#if @chat.name}}
+                            <span class="text-3xl">{{substring @chat.name start=0 end=1}}</span>
+                        {{else}}
+                            <span class="text-3xl">{{substring "Unknown" start=0 end=1}}</span>
+                        {{/if}}
                     {{/if}}
                 </div>
             </div>
@@ -18,7 +22,7 @@
             {{!-- Chata title name --}}
             {{#if this.chatExists}}
                 <span class="font-bold text-lg ml-6">
-                    {{@chat.name}} {{@chat.lastname}}
+                    {{if @chat.name @chat.name "Unknown"}} {{if @chat.lastname @chat.lastname "Contact"}}
                 </span>
             {{/if}}
         </div>

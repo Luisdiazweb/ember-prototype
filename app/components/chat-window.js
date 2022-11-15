@@ -17,9 +17,9 @@ export default class ChatWindowComponent extends Component {
 
     for (let index = 0; index < messages.length; index++) {
       let element = messages[index];
-      console.log(element);
+
       let nextElement = index < messages.length ? messages[index + 1] : null;
-      if (!nextElement || !nextElement.mine) {
+      if (!nextElement || nextElement.mine != element.mine) {
         element.showAvatar = true;
         element.avatar = element.mine
           ? this.userService.user.avatar

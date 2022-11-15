@@ -32,7 +32,7 @@
 
                     <div class="mt-4 flex flex-col w-full">
                         <span class="label-text font-bold mb-3">Phone number</span>
-                        <input type="text" placeholder="Example ###########" class="input input-bordered input-md w-full phone_input" {{ on 'input' this.updateContactPhone }} required pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" title="This value must not contain: (),+, a-z letters or spaces. You must enter numbers only" maxlength="11"/>
+                        <input type="text" placeholder="Example ###########" class="input input-bordered input-md w-full phone_input" {{ on 'input' this.updateContactPhone }} required pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" title="This value must not contain: +1, (), +, a-z letters or spaces. You must enter numbers only" maxlength="10"/>
                     </div>
 
                     <div class="modal-action mt-6">
