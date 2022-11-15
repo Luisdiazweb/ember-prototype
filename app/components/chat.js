@@ -6,13 +6,14 @@ export default class ChatComponent extends Component {
   @service('theme') themeService;
 
   get firstMessage(){
-    let firstMessageVar = 'No messages sent.';
+    let firstMessageVar = 'No messages sent';
 
     if(this.args.messages && this.args.messages.length > 0){
-      firstMessageVar = this.args.messages[this.args.messages.length - 1].content;
+      let authtorSpan = this.args.messages[this.args.messages.length - 1].mine? 'You: ':'';
+      firstMessageVar = `${authtorSpan}${this.args.messages[this.args.messages.length - 1].content}`;
     }
 
-    return `${firstMessageVar.toString().slice(0,25)}...`;
+    return `${firstMessageVar.toString().slice(0,30)}...`;
   }
 
   get lastMessageDate(){
