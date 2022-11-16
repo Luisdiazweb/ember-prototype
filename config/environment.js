@@ -33,6 +33,12 @@ module.exports = function (environment) {
       appId: '1:667986486698:web:43740e26197047e32d77d3',
       measurementId: 'G-1V2VV220NG',
     },
+    pusher: {
+      appId: '1501829',
+      key: '7794b6f6bc180c97f646',
+      secret: 'e5063609ee44cb8f589c',
+      cluster: 'mt1',
+    }
   };
 
   if (environment === 'development') {

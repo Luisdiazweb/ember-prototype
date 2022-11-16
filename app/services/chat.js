@@ -7,6 +7,8 @@ import {
   getContactConversationMessages
 } from '../twilio/conversations';
 import moment from 'moment';
+import Pusher from 'pusher-js';
+import config from '../config/environment';
 
 export default class ChatService extends Service {
   @tracked currentChat = null;
@@ -15,6 +17,31 @@ export default class ChatService extends Service {
 
   @service contact;
   @service('user') userService;
+
+  constructor() {
+    super(...arguments);
+    const pusher = new Pusher(config.pusher.key, {
+      cluster: config.pusher.cluster,
+    });
+
+    if (config.environment === 'development') {
+      Pusher.log = (msg) => {
+        console.log(msg);
+      };
+    }
+
+    const channel = pusher.subscribe('sms_received');
+    channel.bind('sms_received', (data) => {
+      // Expected payload
+      // {
+      //   "body": "Testing", SMS content
+      //   "from": "+13189739014", Who sent the SMS
+      //   "sent_on": "Wed, 16 Nov 2022 02:14:53 +0000", When the SMS was sent
+      //   "direction": "inbound"
+      // }
+      console.log(data);
+    });
+  }
 
   async getConversationsData(){
     await getAllConversations()
