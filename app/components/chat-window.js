@@ -41,10 +41,6 @@ export default class ChatWindowComponent extends Component {
     return !this.chatExists;
   }
 
-  async getAllMessages(sid){
-
-  }
-
   @action
   updateMessageContent(event){
     this.messageContent = event.target.value.toString();
