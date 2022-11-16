@@ -19,7 +19,7 @@ module.exports = function (environment) {
     },
     twilio: {
         TWILIO_ACCOUNT_SID: 'AC0b9468c1538ca4c36ee8c74cdf687d39',
-        TWILIO_AUTH_TOKEN: "bea526a7aa20af6b484b9a917d1a64b4",
+        TWILIO_AUTH_TOKEN: "f9b6fc7a22946f85573f39c433eb2819",
         TWILIO_PHONE: '+14307585308',
         TWILIO_API: 'https://api.twilio.com/2010-04-01/Accounts'
     },

@@ -31,7 +31,7 @@ export default class ChatService extends Service {
     }
 
     const channel = pusher.subscribe('sms_received');
-    channel.bind('sms_received', (data) => {
+    channel.bind('sms_received', async (data) => {
       // Expected payload
       // {
       //   "body": "Testing", SMS content
@@ -39,7 +39,9 @@ export default class ChatService extends Service {
       //   "sent_on": "Wed, 16 Nov 2022 02:14:53 +0000", When the SMS was sent
       //   "direction": "inbound"
       // }
-      console.log(data);
+      console.log("received",data);
+      const sid = this.currentChat ? this.currentChat.sid : null;
+      await this.getFullConversations(sid == null, sid);
     });
   }
 

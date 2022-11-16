@@ -4,8 +4,7 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Swal from 'sweetalert2';
 import {
-  createConversation,
-  addConversationMessage
+  createConversation
 } from '../../twilio/conversations';
 
 export default class HomeChatsController extends Controller {

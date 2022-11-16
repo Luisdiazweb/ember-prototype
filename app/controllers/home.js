@@ -4,7 +4,6 @@ import { service } from '@ember/service';
 export default class HomeController extends Controller {
   @service('theme') themeService;
   @service('chat') chatService;
-  @service('message') messageService;
   @service('user') userService;
 
   get chat() {
